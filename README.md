@@ -1,5 +1,5 @@
 # Tensor-Norms
-Code for algorithms and experiments on multipartite entanglement of random tensors. You can find our paper [here](https://arxiv.org/abs/2209.11754).
+Code for algorithms and experiments on the multipartite entanglement of random tensors. You can find our paper [here](https://arxiv.org/abs/2209.11754).
 ### Installation instructions
 - Download the repository.
 - Copy the code folder to the working directory.
