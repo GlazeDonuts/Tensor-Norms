@@ -7,7 +7,7 @@ Code for algorithms and experiments on the injective norm of random tensors.
 - Delete ```main.py``` if already exists.
 - Import modules as required.
 
-Note: One can choose to use this repository as a library by simply copying the folder and accessing modules via ```import Tensor-Norms.<module_name> as <module_name>```.
+**Note:** One can choose to use this repository as a library by simply copying the folder and accessing modules via ```import Tensor-Norms.<module_name> as <module_name>```.
 
 ### Module List
 
@@ -17,4 +17,4 @@ Note: One can choose to use this repository as a library by simply copying the f
 - ```plotter.py``` Contains plotting functions corresponding to each experiment.
 - ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new expermeints.
 
-Note: Further, explainations are provided in the form of relevant comments in the code.
+**Note:** Further, explainations are provided in the form of relevant comments in the code.
