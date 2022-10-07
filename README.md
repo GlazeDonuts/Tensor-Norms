@@ -9,10 +9,12 @@ Code for algorithms and experiments on the injective norm of random tensors.
 
 Note: One can choose to use this repository as a library by simply copying the folder and accessing modules via ```import Tensor-Norms.<module_name> as <module_name>```.
 
-## Module List
+### Module List
 
-### Wrapper
-Contains basic wrappers for the tensor and approximation classes.
+- ```wrapper.py``` Contains basic wrappers for the tensor and approximation classes.
+- ```decomp.py``` Contains all tensor decomposition functions.
+- ```experiments.py``` Contains experiments on random Gaussian tensors and random MPS.
+- ```plotter.py``` Contains plotting functions corresponding to each experiment.
+- ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new expermeints.
 
-### Comp
-Contains tensor composition functions
+Note: Further, explainations are provided in the form of relevant comments in the code.
