@@ -12,6 +12,7 @@ Code for algorithms and experiments on the multipartite entanglement of random t
 - ```decomp.py``` Contains all tensor decomposition functions.
 - ```experiments.py``` Contains experiments on random Gaussian tensors and random MPS.
 - ```plotter.py``` Contains plotting functions corresponding to each experiment.
+- ```config.py``` Contains configuration variables for experiments and plotter functions.
 - ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new expermeints.
 
 **Note:** Further, explainations are provided in the form of relevant comments in the code.
