@@ -43,8 +43,7 @@ class plt_config():
         'order_2_sgd': cmap(5),
         'order_3_sgd': cmap(7),
         'order_2_pow': cmap(8),
-        'order_3_pow': cmap(9), # add mota papa here
-        # 'ratio': 'saddlebrown'
+        'order_3_pow': cmap(9)
         }
     mps_col_dict = {
         'dim_10': 'limegreen',
