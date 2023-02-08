@@ -15,4 +15,4 @@ Code for algorithms and experiments on the multipartite entanglement of random t
 - ```config.py``` Contains configuration variables for experiments and plotter functions.
 - ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new expermeints.
 
-**Note:** Further, explainations are provided in the form of relevant comments in the code.
+**Note:** Further explainations are provided in the form of relevant comments in the code.
