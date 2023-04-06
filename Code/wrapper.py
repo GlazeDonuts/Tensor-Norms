@@ -33,9 +33,7 @@ class Tensaur():
 class CompSetList():
     def __init__(self, data):
         '''
-        data_: list of iteratables of shape [b, r, d] or [r, d]
-        attributes:
-        data: data
+        data_: list of iteratables, each of shape [b, r, d_i] or [r, d_i]
         batched: bool
         batch_size: int if batched=True
         rank: rank of compsets (has to be same for all compsets)
