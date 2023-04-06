@@ -11,7 +11,7 @@ Wrapper Classes
 class Tensaur():
     def __init__(self, data, batched=False):
         '''
-        data_: iteratable of shape [b, d1, d2, ..., dn] or [d1, d2, ..., dn]
+        data_: iteratable of shape [b, d1, d2, ..., dn] or tensor of shape [d1, d2, ..., dn]
         '''
         if not isinstance(data, Tensaur):
             if not torch.is_tensor(data):
@@ -33,7 +33,7 @@ class Tensaur():
 class CompSetList():
     def __init__(self, data):
         '''
-        data: list of iteratables of shape [b, r, d] or [r, d]
+        data_: list of iteratables of shape [b, r, d] or [r, d]
         attributes:
         data: data
         batched: bool
