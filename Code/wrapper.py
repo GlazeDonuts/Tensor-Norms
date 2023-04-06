@@ -11,7 +11,7 @@ Wrapper Classes
 class Tensaur():
     def __init__(self, data, batched=False):
         '''
-        data: iteratable of shape [b, d1, d2, ..., dn] or [d1, d2, ..., dn]
+        data_: iteratable of shape [b, d1, d2, ..., dn] or [d1, d2, ..., dn]
         '''
         if not isinstance(data, Tensaur):
             if not torch.is_tensor(data):
