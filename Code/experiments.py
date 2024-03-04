@@ -724,4 +724,4 @@ def AntisymExp(  dim_list,
 
 
 if __name__ == '__main__':
-    NormedGaussExp(range(200, 0, -15), [3, 2], 20, config=def_config, cmplx=False)
+    GaussExp(range(20, 0, -5), [3, 2], 20, config=def_config, cmplx=True)
