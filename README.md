@@ -3,8 +3,24 @@ Code for algorithms and experiments on the multipartite entanglement of random t
 ### Installation instructions
 - Download the repository.
 - Copy the code folder to the working directory.
-- Delete ```main.py``` if already exists.
+
+### Execution instructions
+- Create a ```main.py``` if not already present.
 - Import modules as required.
+- An example file is provided below.
+
+  ```
+  import experiments
+
+  experiments.GaussExp(dim_list=[15, 25, 35], order_list=[2, 3], num_samples=500)
+
+  '''
+  Explanation:
+  We run a random Gaussian state experiment for order 2 (bipartite) and 3 (tripartite) states with local dimensions 15, 25 and 35.
+  The num_samples parameter controls how many random samples we average over for each (dimension, order) pair.
+  
+  '''
+  ```
 
 ### Module List
 
