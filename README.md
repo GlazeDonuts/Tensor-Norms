@@ -3,7 +3,16 @@ Code for algorithms and experiments on the multipartite entanglement of random t
 ### Installation instructions
 - Download the repository.
 - Copy the code folder to the working directory.
+- Create an environment as per the instructions below.
 
+### Environment creation
+- Install Anaconda from this [link](https://www.anaconda.com/download).
+- Open a new terminal window in the working directory.
+- Create a new environment using the ```environment.yml``` file.
+```
+conda env create -n tensor_norms -f environment.yml
+```
+  
 ### Execution instructions
 - Create a ```main.py``` if not already present.
 - Import modules as required.
@@ -23,12 +32,12 @@ Code for algorithms and experiments on the multipartite entanglement of random t
   ```
 
 ### Module List
-
 - ```wrapper.py``` Contains basic wrappers for the tensor and approximation classes.
 - ```decomp.py``` Contains all tensor decomposition functions.
 - ```experiments.py``` Contains experiments on random Gaussian tensors and random MPS.
 - ```plotter.py``` Contains plotting functions corresponding to each experiment.
 - ```config.py``` Contains configuration variables for experiments and plotter functions.
-- ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new expermeints.
+- ```utils.py``` Contains utility functions used in all of the above modules. Typically, this module would be important while designing new experiments.
+- ```environment.yml``` Is the environment file to create the environment.
 
-**Note:** Further explainations are provided in the form of relevant comments in the code.
+**Note:** Further explanations are provided in the form of relevant comments in the code.
