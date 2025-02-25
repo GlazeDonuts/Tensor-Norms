@@ -29,7 +29,7 @@ The output should list the following files and folders.
 |- LICENSE
 |- README.md
 ```
-2. Furhter, run the following code to check if the environment is active.
+2. Further, run the following code to check if the environment is active.
 ```
 conda env list
 ```
