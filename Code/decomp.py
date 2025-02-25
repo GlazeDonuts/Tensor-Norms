@@ -271,7 +271,7 @@ def SymPowDeComp(T, batched=None, device=None, config=def_config, show_tq=False)
 
     criterion = config.criterion
 
-    # Matricized version of T
+    # Tensorized/Matricized version of T
     if batched:
         view_T = T_data.view(T.batch_size, -1, dim).to(device)
     else:
@@ -316,15 +316,3 @@ def SymPowDeComp(T, batched=None, device=None, config=def_config, show_tq=False)
     return CompSetList(utils.normalize_compsetlist([a.cpu()]*order))
     #endregion    
 
-if __name__ == '__main__':
-    utils.set_seed(1234)
-    a = torch.normal(0, 1,(1, 10)) + 1j*torch.normal(0, 1,(1, 10))
-    a = CandyComp([a]*1)
-    print("A shape: ", a.shape)
-    b, _ = DeComp(a, batched=False)
-    print("B data len: ", len(b.data_))
-    print("B data shapes: ", b.data_[0].shape)
-    print("B data00 norm: ", torch.norm(b.data_[0]))
-    print(b.data_[0].dtype)
-    print(b.data_[0])
-    print(torch.norm(b.data_[0]))

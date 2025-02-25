@@ -28,9 +28,8 @@ class plt_config():
     marker_list = ['x', '+', 'o', 'D']
     lin_alpha = 2.5
     show = False
-    # cmap = 'tab10'
     line_alpha = 1
-    line_width = 0.5
+    line_width = 2
     color_dict = {
         'order_3_fit': 'limegreen',
         'order_2_fit': 'goldenrod',

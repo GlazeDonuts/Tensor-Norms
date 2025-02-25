@@ -3,6 +3,7 @@ import comp
 import json
 import math
 import numpy as np
+import os
 import sys
 import time
 import torch
@@ -16,20 +17,38 @@ from decomp import DeComp, SymDeComp, SymPowDeComp
 from wrapper import Tensaur, CompSetList
 
 
+# Check if the Logs directory exists, and create it if not
+log_dir = "Logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+
 def GaussExp(   dim_list,   order_list,     num_samples,    batch_size=None,
                 alloc=3.2,  cmplx=False,    write_freq=1,   write_path=None,
                 device=None, config=def_config,   normalize=False):
     '''
-    Gaussian State experiment
-    dim_list: values of d (>> values of n)
-    order_list: values of n
-    num_samples: number of samples for each (order, dim)
-    batch_size: size of each batch < number of samples
-    cmplx: bool for complex or real
-    normalize: bool for normalizing tensors pre-optimzation
+    - Gaussian State experiment
+    - dim_list: values of d (>> values of n)
+    - order_list: values of n
+    - num_samples: number of samples for each (order, dim)
+    - batch_size: size of each batch < number of samples
+    - alloc: memory allocated to the script (in Gb)
+    - cmplx: bool for complex or real
+    - write_freq: frequency (in batches) of writing the log file to the disk.
+    - write_path: path to write the log file
+    - device: device to run the script on ('cuda' or 'cpu')
+    - config: configuration file
+    - normalize: bool for normalizing tensors pre-optimzation
     '''
 
     utils.set_seed(config.seed)
+
+    print("Running Gaussian tensor experiment.")
+
+    log_dir = "Logs"
+    # Check if the directory exists, and create it if not
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
 
     if device is None:
         if torch.cuda.is_available():
@@ -64,6 +83,10 @@ def GaussExp(   dim_list,   order_list,     num_samples,    batch_size=None,
         for dim_idx, dim in enumerate(dim_list):
             logger[str(order)][str(dim)] = {}
 
+            # If we are running the code on the CPU, and batch size is not provided,we use a batchsize of 1 by default 
+            # to limit CPU memory consumption.
+            if device == 'cpu' and batch_size is None:
+                batch_size = 1
             if batch_size is None:
                 temp = comp.make_Gauss(dim=dim, order=order, cmplx=cmplx)
                 temp_space = DeComp(temp, decomp_only_init=True)
@@ -233,7 +256,6 @@ def GaussExp(   dim_list,   order_list,     num_samples,    batch_size=None,
                 logger[str(order)][str(dim)]['sym_sgd_loss_list'].append(sym_sgd_loss)
                 logger[str(order)][str(dim)]['sym_pow_loss_list'].append(sym_pow_loss)
 
-                del temp_non_state_batch
                 del sym_state_batch
                 if cmplx == False:
                     del sym_als_cores
@@ -277,16 +299,33 @@ def GaussExp(   dim_list,   order_list,     num_samples,    batch_size=None,
     logger['exp_end_time'] = time.strftime('%X %x %Z')
 
 
-def GaussMPSExp_DF(order_list, dim_list, bond_dim_list, num_samples, periodic, rep, cmplx=False, normalize=False, batch_size=None, alloc_gpu=3.2, alloc_cpu=14, write_freq=1, write_path=None, device=None, config=def_config):
+def GaussMPSExp_DF( order_list,         dim_list,           bond_dim_list,      num_samples, 
+                    periodic,           rep, cmplx=False,   normalize=False,    batch_size=None, 
+                    alloc_gpu=3.2,      alloc_cpu=4,        write_freq=1,       write_path=None, 
+                    device=None,        config=def_config):
     '''
     Gaussian MPS experiment
-    order_list: values of n
-    bond_dim_list: values of q
-    dim_list: values of d
-    num_samples: number of samples for each (n, q, d)
-    batch_size: size of each batch <= number of samples
+    - order_list: values of n
+    - dim_list: values of d
+    - bond_dim_list: values of q
+    - num_samples: number of samples for each (n, q, d)
+    - periodic: bool for periodic boundary conditions
+    - rep: bool for translation invariance
+    - cmplx: bool for complex or real
+    - normalize: bool for normalizing tensors pre-optimzation
+    - batch_size: size of each batch <= number of samples
+    - alloc_gpu: memory allocated to the script (in Gb) on the GPU
+    - alloc_cpu: memory allocated to the script (in Gb) on the CPU
+    - write_freq: frequency (in batches) of writing the log file to the disk.
+    - write_path: path to write the log file
+    - device: device to run the script on ('cuda' or 'cpu')
+    - config: configuration file
     '''
+    
     utils.set_seed(config.seed)
+    
+    print("Running Gaussian MPS experiment.")
+
 
     if device is None:
         if torch.cuda.is_available():
@@ -329,6 +368,11 @@ def GaussMPSExp_DF(order_list, dim_list, bond_dim_list, num_samples, periodic, r
                 
                 logger[str(order)][str(dim)][str(bond_dim)] = {}
                 logger[str(order)][str(dim)][str(bond_dim)]['start_time'] = time.strftime('%X %x %Z')
+
+                # If we are running the code on the CPU, and batch size is not provided,we use a batchsize of 1 by default 
+                # to limit CPU memory consumption.
+                if device == 'cpu' and batch_size is None:
+                    batch_size = 1
                 if batch_size is None:
                     temp = comp.make_GaussMPS_special(num_sites=order, bond_dim=bond_dim, dim=dim, cmplx=cmplx, batched=True, batch_size=1)
                     temp_space = DeComp(temp, decomp_only_init=True)
@@ -623,14 +667,12 @@ def DickeExp(   num_particles,
         logger['ngd_loss_list'].append(non_ngd_loss)
         
         del non_state_batch
-        # if cmplx == False:
         del non_als_cores
         del non_ngd_cores
         del non_ngd_loss
         del non_ngd_approx
         torch.cuda.empty_cache()
 
-        # if cmplx == False:
 
         logger['partition_tuple_list'].append(partition_tuple)
         
@@ -722,6 +764,3 @@ def AntisymExp(  dim_list,
     
     logger['exp_end_time'] = time.strftime('%X %x %Z')
 
-
-if __name__ == '__main__':
-    GaussExp(range(20, 0, -5), [3, 2], 20, config=def_config, cmplx=True)

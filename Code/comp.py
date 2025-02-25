@@ -207,51 +207,6 @@ def make_GaussMPS_general(dim_list, bond_dim_list=None, cyclic=False, cmplx=Fals
                 else:
                     out = torch.einsum('...ij, jkl -> ...ikl', out, site_temp)
 
-    # else:
-    #     for idx in range(0, num_sites):
-
-    #         temp_shape_tuple = (bond_dim_list[idx-1], dim_list[idx], bond_dim_list[idx])
-        
-    #         if batched:
-    #                 temp_shape_tuple = (batch_size,) + temp_shape_tuple
-            
-    #         if mean_list is None:
-    #             mean = 0
-    #         else:
-    #             mean = mean_list[idx]
-        
-    #         if stdv_list is None:
-    #             stdv = math.sqrt(1/dim_list[idx])
-    #         else:
-    #             stdv = stdv_list[idx]
-
-    #         site_temp = torch.normal(mean, stdv, temp_shape_tuple)
-
-    #         if cmplx:
-    #             site_temp_comp = torch.normal(mean, stdv, shape)
-    #             site_temp = (site_temp + site_temp_comp) / math.sqrt(2)
-
-    #         if idx == 0:
-    #             site_zero = site_temp
-    #         if idx == num_sites - 1:
-    #             site_last = site_temp
-            
-    #         if batched:
-    #             if idx == 0:
-    #                 out = site_temp
-    #             elif idx == num_sites - 1:
-    #                 out = torch.einsum('b...ij, bjk -> b...ik', out, site_temp)
-    #             else:
-    #                 out = torch.einsum('b...ij, bjkl -> b...ikl', out, site_temp)
-
-    #         else:
-    #             if idx == 0:
-    #                 out = site_temp
-    #             elif idx == num_sites - 1:
-    #                 out = torch.einsum('...ij, jk -> ...ik', out, site_temp)
-    #             else:
-    #                 out = torch.einsum('...ij, jkl -> ...ikl', out, site_temp)
-
     return Tensaur(out, batched=batched)
     
 
@@ -330,21 +285,12 @@ def CandyComp(comp_set_list, batched=False):
 
     # Outerproduct
     for comp_set in comp_set_list.data_[1:]:
-        # print("Comp set shape: ", comp_set.shape)
         if comp_set_list.batched:
             comp_out = torch.einsum("br...ij, br...jk -> br...ik", comp_out.unsqueeze(-1), comp_set.unsqueeze(-2))
         else:
             comp_out = torch.einsum("r...ij, r...jk -> r...ik", comp_out.unsqueeze(-1), comp_set.unsqueeze(-2))
-        # print("Comp out shape: ", comp_out.shape)
     # Summation
     if comp_set_list.batched:
         return comp_out.sum(dim=1)
     else:
         return comp_out.sum(dim=0)
-
-
-
-if __name__ == '__main__':
-    a = make_GaussMPS_special(3, 10, 25, periodic=False, rep=False, cmplx=False, batched=True, batch_size=16)
-    print("printing a shape", a.data_.shape)
-    print(a.data_.dtype)

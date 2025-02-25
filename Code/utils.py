@@ -251,12 +251,6 @@ def swap_bf_df(logger):
 
 def mps_candidate(x, c_1, c_2, c_3, c_4, c_5, c_6):
     x1, x2 = x
-    # return c_1/x1 + c_2/np.sqrt(x1) + c_3/x2 + c_4/np.sqrt(x2)
-    # return c_1/np.sqrt(x1) + c_2/np.sqrt(x2)
-    # return c_1/x1 + c_2/x2 + c_3/(np.sqrt(x1)*np.sqrt(x2))
-    # return (c_1/np.sqrt(x1) + c_2/np.sqrt(x2))**2
-    # return (c_1/np.sqrt(x1) + c_2/np.sqrt(x2) + c_3/(np.sqrt(x1)*np.sqrt(x2)))**2
-    # return (c_1/np.sqrt(x1) + c_2/np.sqrt(x2) + c_3/(np.sqrt(x1)*np.sqrt(x2)) + c_4/(x1*x2))**2
     return (c_1/np.sqrt(x1) + c_2/np.sqrt(x2) + c_3/(np.sqrt(x1)*np.sqrt(x2)) + c_4/x1 + c_5/x2 + c_6/(x1*x2))**2
 
 
@@ -459,21 +453,7 @@ def mixgauss_ratio_maker(path, num_samples=10, factor=1, order_list=None):
     with open("Code/jsons/MixGaussian_Ratios_" + str(list(order_list)) + "_.json", "w") as outfile:
         outfile.write(dump_object)
 
-
-
-# def my_norm(core_set):
-#     if core_set[0].type().split('.')[-1] == 'FloatTensor':
-#         return [torch.div(x, x.norm(dim=0).unsqueeze(-1).repeat([1, x.shape[-1]])) for x in core_set]
-#     elif core_set[0].type().split('.')[-1] == 'ComplexFloatTensor':
-#         return [torch.div(x, normalize(x, dim=0).unsqueeze(-1).repeat([1, x.shape[-1]])) for x in core_set]
-
-
-# def normalize(comp_set_list):
-#     if not torch.is_complex(core_set.data_):
-#         return CompSetList([torch.div(x, normalize(x, dim=-1))])
-#     elif torch.is_complex(core_set.data_):
-#         return [torch.div(x, normalize(x, dim=0).unsqueeze(-1).repeat([1, x.shape[-1]])) for x in core_set]
-    
+  
 #endregion
 
 """
@@ -564,9 +544,6 @@ def DeComp(T, rank=1, lr=1e-3, optimizier='ADAM', criterion=torch.nn.SmoothL1Los
         optimizier = torch.optim.SGD(param_list, lr)
     if optimizier == 'ADAM':
         optimizier = torch.optim.Adam(param_list, lr)
-    # Not a good idea to use ADAMW here, because you do not want to mess with the weights apart from the initial normalization
-    # if optimizier == 'ADAMW':
-    #     optimizier = torch.optim.AdamW(param_list, lr)
     
 
     epoch_tq = tqdm(range(int(max_epoch)), leave=leave)
@@ -611,29 +588,6 @@ def DeComp(T, rank=1, lr=1e-3, optimizier='ADAM', criterion=torch.nn.SmoothL1Los
         loss.backward()
         optimizier.step()
 
-        # Uncomment following code and call the function on some random tensor to understand how normalization is handled
-        # The g values remain 1 as they are not named_parameters
-        # Whenever there is an update, it affects the norm of the V vectors
-        # However, whenever we use the layer (in this case the embedding layer is "used" by "accessing" an embedding)...
-        # ...the layer returns g.(v/|v|) and hence we get normalized vectors.
-        # Checkout https://pytorch.org/dohcs/stable/generated/torch.nn.utils.weight_norm.html
-        # idx = 1 # Can put any index depending on rank
-        # print("Module print starting\n","="*50)
-        # for module in my_cores.normalized_list:
-        #     print(f"Module G: {module.weight_g}")   # Printing stored g values
-        #     print(f"Module V: {module.weight_v}")   # Printing the v vectors    
-        #     print(f"Module V Shape: {module.weight_v.shape}")   # Printing the shape of v vectors
-        #     # Printing the norms of each of the v vectors (torch stores things in rows)
-        #     print(f"Module V norms: {torch.norm(module.weight_v, dim=-1)}")
-        #     # Checking that the printed norms are actually the norms of vectors
-        #     print(f"Module V[{idx}] and V[{idx+1}] Norm: {torch.norm(module.weight_v[idx])}, {torch.norm(module.weight_v[idx+1])}")
-        #     # Printing manually normalized vectors
-        #     print(f"Module V[{idx}] and V[{idx+1}] vectors manually normalized: {module(torch.LongTensor([idx]))/torch.norm(module(torch.LongTensor([idx])))}, {module(torch.LongTensor([idx+1]))/torch.norm(module(torch.LongTensor([idx+1])))}")
-        #     # Printing vectors to see if they have been normalized correctly (Use a calculator and try yourself)
-        #     print(f"Module V[{idx}] and V[{idx+1}] vectors after access: {module(torch.LongTensor([idx]))}, {module(torch.LongTensor([idx+1]))}")
-        #     # Printing norms after access, i.e. normalized norms
-        #     print(f"Module V[{idx}] and V[{idx+1}] Norm after access: {torch.norm(module(torch.LongTensor([idx])))}, {torch.norm(module(torch.LongTensor([idx+1])))}")
-        # print("Module print ended\n","="*50)
     print(f"\nMaximum Epochs reached with error: {error}\n")
     out_list = []
     for module in my_cores.normalized_list:
