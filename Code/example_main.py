@@ -19,8 +19,8 @@ gauss_order_list = [2, 3]
 gauss_dim_list = [15, 25, 35]
 
 mps_order_list = [3]
-mps_dim_list = [15]
-mps_bond_dim_list = [15]
+mps_dim_list = [15, 25]
+mps_bond_dim_list = [5, 10]
 
 experiments.GaussExp(dim_list=gauss_dim_list, order_list=gauss_order_list, num_samples=4, device='cpu', batch_size=4, alloc=4, cmplx=gauss_cmplx, normalize=normalize)
 
