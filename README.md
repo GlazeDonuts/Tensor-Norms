@@ -51,6 +51,7 @@ cd Code
 ```
   import experiments
   import plotter
+  
   '''
   Experiments:
   We first run a random real Gaussian state experiment for order 2 (bipartite) and 3 (tripartite) states with local dimensions 15, 25 and 35.
@@ -91,7 +92,6 @@ cd Code
 
   # Plotting the results for the MPS states (similar to Figure 8 in the paper), scaling with physical dimension
   plotter.plot_mps_bf(f"Logs/GaussianMPS_{mps_order_list}_periodic_{periodic}_rep_{rep}_cmplx_{mps_cmplx}_normalize_False_DF.json", periodic=periodic, rep=rep, cmplx=cmplx)
-  '''
 ```
 
 ### Module List
