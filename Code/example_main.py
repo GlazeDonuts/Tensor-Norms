@@ -22,9 +22,9 @@ mps_order_list = [3]
 mps_dim_list = [15, 25]
 mps_bond_dim_list = [5, 10]
 
-# experiments.GaussExp(dim_list=gauss_dim_list, order_list=gauss_order_list, num_samples=4, device='cpu', batch_size=4, alloc=4, cmplx=gauss_cmplx, normalize=normalize)
+experiments.GaussExp(dim_list=gauss_dim_list, order_list=gauss_order_list, num_samples=4, device='cpu', batch_size=4, alloc=4, cmplx=gauss_cmplx, normalize=normalize)
 
-# experiments.GaussMPSExp_DF(order_list=mps_order_list, dim_list=mps_dim_list, bond_dim_list=mps_bond_dim_list, num_samples=4, device='cpu', batch_size=4, alloc_cpu=4, periodic=periodic, rep=rep, cmplx=mps_cmplx, normalize=normalize)
+experiments.GaussMPSExp_DF(order_list=mps_order_list, dim_list=mps_dim_list, bond_dim_list=mps_bond_dim_list, num_samples=4, device='cpu', batch_size=4, alloc_cpu=4, periodic=periodic, rep=rep, cmplx=mps_cmplx, normalize=normalize)
 
 '''
 Plotting:
