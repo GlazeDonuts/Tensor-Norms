@@ -51,7 +51,7 @@ cd Code
 ```
   import experiments
   import plotter
-  
+
   '''
   Experiments:
   We first run a random real Gaussian state experiment for order 2 (bipartite) and 3 (tripartite) states with local dimensions 15, 25 and 35.
@@ -108,4 +108,4 @@ We also provide an ```example_main.py``` file as an example file demonstrating h
 **_Note:_** Further explanations are provided in the form of relevant comments in the code.
 
 
-_Pleasae feel free to write to us or report issues here on GitHub :)_
+_Please feel free to write to us or report issues here on GitHub :)_

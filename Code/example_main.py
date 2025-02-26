@@ -22,9 +22,9 @@ mps_order_list = [3]
 mps_dim_list = [15, 25]
 mps_bond_dim_list = [5, 10]
 
-experiments.GaussExp(dim_list=gauss_dim_list, order_list=gauss_order_list, num_samples=4, device='cpu', batch_size=4, alloc=4, cmplx=gauss_cmplx, normalize=normalize)
+# experiments.GaussExp(dim_list=gauss_dim_list, order_list=gauss_order_list, num_samples=4, device='cpu', batch_size=4, alloc=4, cmplx=gauss_cmplx, normalize=normalize)
 
-experiments.GaussMPSExp_DF(order_list=mps_order_list, dim_list=mps_dim_list, bond_dim_list=mps_bond_dim_list, num_samples=4, device='cpu', batch_size=4, alloc_cpu=4, periodic=periodic, rep=rep, cmplx=mps_cmplx, normalize=normalize)
+# experiments.GaussMPSExp_DF(order_list=mps_order_list, dim_list=mps_dim_list, bond_dim_list=mps_bond_dim_list, num_samples=4, device='cpu', batch_size=4, alloc_cpu=4, periodic=periodic, rep=rep, cmplx=mps_cmplx, normalize=normalize)
 
 '''
 Plotting:
@@ -40,4 +40,4 @@ plotter.plot_non_gauss(f"Logs/Gaussian_{gauss_order_list}_{gauss_dim_list}_4_{ga
 plotter.plot_sym_gauss(f"Logs/Gaussian_{gauss_order_list}_[15, 25, 35]_4_{gauss_cmplx}_{normalize}.json")
 
 # Plotting the results for the MPS states (similar to Figure 8 in the paper), scaling with physical dimension
-plotter.plot_mps_bf(f"Logs/GaussianMPS_{mps_order_list}_periodic_{periodic}_rep_{rep}_cmplx_{mps_cmplx}_normalize_False_DF.json", periodic=periodic, rep=rep, cmplx=cmplx)
+plotter.plot_mps_bf(f"Logs/GaussianMPS_{mps_order_list}_periodic_{periodic}_rep_{rep}_cmplx_{mps_cmplx}_normalize_False_DF.json", periodic=periodic, rep=rep, cmplx=mps_cmplx)
