@@ -2,7 +2,9 @@
 Code for algorithms and experiments on the multipartite entanglement of random tensors. You can find our paper [here](https://arxiv.org/abs/2209.11754).
 
 ### Installation instructions
-- Download the repository.
+- Make sure you have Python 3.7 or higher installed on your system.
+- Make sure you have LaTeX installed on your system to render the plots. If not, please install it from this [link](https://www.latex-project.org/get/). 
+- Download this repository.
 - Set the current working directory to the downloaded repository.
 - Create an environment as per the instructions below.
 
